@@ -16,13 +16,11 @@ public class BookController {
         this.service = service;
     }
 
-    // Добавление книги
     @PostMapping
     public Book addBook(@RequestBody Book book) {
         return service.addBook(book);
     }
 
-    // Получение всех книг
     @GetMapping
     public List<Book> getAllBooks() {
         return service.getAllBooks();
