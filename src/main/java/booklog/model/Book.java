@@ -16,8 +16,15 @@ public class Book {
 
     private boolean read;
 
-    public Book() {
+    public Book() {}
+
+    public Book(Long id, String title, String author, boolean read) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.read = read;
     }
+
 
     public Long getId() {
         return id;

@@ -39,7 +39,15 @@ public class BookService {
                 .orElseThrow(() -> new RuntimeException("Book not found"));
     }
 
-    public void deleteBook(Long id) {
-        repository.deleteById(id);
+    public boolean deleteBook(Long id) {
+        Optional<Book> optionalBook = repository.findById(id);
+
+        if (optionalBook.isPresent()) {
+            repository.deleteById(id);
+            return true;
+        }
+
+        return false;
     }
+
 }
