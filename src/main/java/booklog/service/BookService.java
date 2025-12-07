@@ -12,7 +12,6 @@ public class BookService {
 
     private final BookRepository repository;
 
-    // Инжектим BookRepository через конструктор
     public BookService(BookRepository repository) {
         this.repository = repository;
     }
@@ -27,5 +26,20 @@ public class BookService {
 
     public Optional<Book> getBook(Long id) {
         return repository.findById(id);
+    }
+
+    public Book updateBook(Long id, Book updatedBook) {
+        return repository.findById(id)
+                .map(book -> {
+                    book.setTitle(updatedBook.getTitle());
+                    book.setAuthor(updatedBook.getAuthor());
+                    book.setRead(updatedBook.isRead());
+                    return repository.save(book);
+                })
+                .orElseThrow(() -> new RuntimeException("Book not found"));
+    }
+
+    public void deleteBook(Long id) {
+        repository.deleteById(id);
     }
 }

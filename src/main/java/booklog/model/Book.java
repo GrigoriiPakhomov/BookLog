@@ -1,18 +1,23 @@
 package booklog.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "books")
 public class Book {
 
-    //Уникальный Id книги
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //Название книги
     private String title;
 
-    //Автор книги
     private String author;
 
-    //Статус прочтения
     private boolean read;
+
+    public Book() {
+    }
 
     public Long getId() {
         return id;
