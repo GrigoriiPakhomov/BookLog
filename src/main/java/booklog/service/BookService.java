@@ -2,6 +2,8 @@ package booklog.service;
 
 import booklog.model.Book;
 import booklog.repository.BookRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,6 +11,8 @@ import java.util.Optional;
 
 @Service
 public class BookService {
+
+    private static final Logger log = LoggerFactory.getLogger(BookService.class);
 
     private final BookRepository repository;
 
@@ -40,13 +44,20 @@ public class BookService {
     }
 
     public boolean deleteBook(Long id) {
+
+        log.info("Request to delete book with id={}", id);
+
         Optional<Book> optionalBook = repository.findById(id);
 
         if (optionalBook.isPresent()) {
             repository.deleteById(id);
+
+
+            log.info("Book with id={} was successfully deleted", id);
             return true;
         }
 
+        log.warn("Book with id={} not found. Nothing to delete", id);
         return false;
     }
 
